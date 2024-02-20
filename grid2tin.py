@@ -1,4 +1,4 @@
-from osgeo import gdal, ogr, osr
+from osgeo import gdal, ogr
 import numpy as np
 from scipy.spatial import Delaunay
 import numpy.ma as ma
@@ -17,7 +17,9 @@ class RasterTINProcessor:
         return arr, gt
 
     def raster_to_points_gradient(self, raster_array, geo_transform):
-        grad = np.gradient(raster_array)
+        grad = np.gradient(raster_array)#计算梯度
+        #打印raster_array的shape
+        print(raster_array.shape)
         grad_magnitude = np.sqrt(grad[0]**2 + grad[1]**2)
 
         points = []
@@ -28,6 +30,8 @@ class RasterTINProcessor:
                     y = geo_transform[3] + row * geo_transform[5]
                     z = raster_array[row, col]
                     points.append((x, y, z))
+        #打印点集的数量
+        print(len(points))
         return np.array(points)
 
     def create_tin(self, points):
@@ -69,5 +73,5 @@ class RasterTINProcessor:
 
 # 使用方法
 if __name__ == "__main__":
-    processor = RasterTINProcessor('路径/到/您的/栅格.tif', './result.shp', 20)
+    processor = RasterTINProcessor('./cj.tif', './result.shp', 5)
     processor.process()
