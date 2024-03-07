@@ -1,51 +1,40 @@
-# grid2tin
+# DEM到TIN转换工具
 
-## 简介
+这是一个基于Python和GDAL库的工具，用于将数字高程模型（DEM）转换为三角剖分不规则网络（TIN）。
 
-`grid2tin`是一个基于Python的工具，用于将栅格数据转换为TIN（三角不规则网络）并导出为Shapefile格式。该工具适用于地理信息系统（GIS）数据处理，特别是在地形建模、地理空间分析等领域中非常有用。
+## 特性
 
-## 功能
+- **读取DEM数据**：该工具能够读取GeoTiff格式的DEM数据。
 
-- 读取栅格数据（如DEM，数字高程模型）
-- 根据栅格数据的梯度生成点集
-- 创建TIN
-- 将TIN导出为Shapefile格式
+- **基于梯度生成点集**：工具会根据DEM数据生成点集，只有当地形的梯度超过设定的阈值时，该点才会被纳入点集。
 
-## 安装
+- **生成Delaunay三角网**：利用生成的点集，工具会进一步生成Delaunay三角网，即TIN。
 
-本工具依赖于多个Python库，包括GDAL、NumPy和SciPy等。请按照以下步骤安装：
-
-1. 克隆仓库到本地：
-   ```
-   git clone https://github.com/GISer1909/grid2tin.git
-   ```
-2. 安装依赖：
-   ```
-   pip install -r requirements.txt
-   ```
+- **保存结果**：工具将TIN数据保存为文本文件，同时生成一个表示DEM数据边界的GeoJSON文件。
 
 ## 使用方法
 
-1. 确保您的Python环境已安装所有依赖。
-2. 编辑`grid2tin.py`文件，设置栅格文件路径、输出Shapefile路径和梯度阈值。
-3. 运行脚本：
-   ```
-   python grid2tin.py
-   ```
+1. 在`main()`函数中，将`raster_path`变量修改为你的DEM文件的路径。
 
-## 示例
+2. 将`output_txt_path`变量修改为你希望保存TIN数据的文本文件的路径。
 
-假设您有一个名为`example.tif`的栅格文件，并希望将其输出为`output.shp`，您可以按照以下步骤操作：
+3. 将`output_geojson_path`变量修改为你希望保存边界数据的GeoJSON文件的路径。
 
-1. 设置栅格文件路径为`example.tif`。
-2. 设置输出Shapefile路径为`output.shp`。
-3. 设置梯度阈值（根据您的数据特性自行决定）。
-4. 运行`grid2tin.py`。
+4. 将`gradient_threshold`变量设定为你期望的梯度阈值。
 
-## 贡献
+5. 运行脚本。
 
-欢迎对本项目作出贡献！如果您有任何改进建议或功能请求，请通过Issue或Pull Request与我联系。
+## 注意
 
-## 许可证
+本项目生成的txt格式可以适用于[DEM可视化软件](https://github.com/GISer1909/dem_show)。通过该软件，你可以直观地查看和分析TIN数据。
 
-本项目遵循MIT License许可证。有关更多信息，请参阅LICENSE文件。
+## 依赖
+
+- Python
+- GDAL
+- NumPy
+- SciPy
+
+## 许可
+
+该项目采用MIT许可。

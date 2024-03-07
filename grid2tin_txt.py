@@ -95,7 +95,6 @@ def create_geojson_polygon(corners, output_path):
 
 # 主程序
 def main():
-    #"C:\Users\Administrator\Desktop\map\cumt\cj.tif"
     raster_path = "./cj.tif"  # 输入栅格文件路径
     output_txt_path = 'output_triangles.txt'  # 输出文本文件路径
     output_geojson_path = 'boundary.geojson'  # 输出 GeoJSON 文件路径
